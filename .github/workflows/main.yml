@@ -1,0 +1,41 @@
+name: CI
+on:
+  workflow_dispatch:
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run a one-line script
+        run: echo Hello, world!
+        
+  deploy_dev:
+    runs-on: ubuntu-latest
+    environment:
+      name: dev
+      url: 'vitorsantos.bom'
+    needs: build
+    steps:
+      - name: Run a one-line script
+        run: echo deploy-dev!
+
+  deploy_hmg:
+    runs-on: ubuntu-latest
+    environment:
+      name: hmg
+      url: 'vitorsantos.bom'
+    needs: deploy_dev
+    steps:
+      - name: Run a one-line script
+        run: echo deploy-hmg!
+  
+  deploy_prod:
+    runs-on: ubuntu-latest
+    environment:
+      name: prod
+      url: 'vitorsantos.bom'
+    needs: deploy_hmg
+    steps:
+      - name: Run a one-line script
+        run: echo deploy-prod!
